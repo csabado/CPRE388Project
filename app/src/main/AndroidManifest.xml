@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RequestedWords"></activity>
+        <activity android:name=".RequestedWords"/>
         <activity android:name=".RequestForm" />
         <activity android:name=".wordDetails" />
         <activity android:name=".DictionaryHome" />
