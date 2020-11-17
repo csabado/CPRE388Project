@@ -31,6 +31,7 @@ public class DictionaryHome extends AppCompatActivity {
     ArrayList<String> arrayDef = new ArrayList<>();
     ArrayList<String> arrayEx = new ArrayList<>();
     ArrayList<String> arrayS = new ArrayList<>();
+    ArrayList<String> arrayI = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
     Words word;
@@ -53,6 +54,7 @@ public class DictionaryHome extends AppCompatActivity {
                     arrayDef.add(word.getDefinition());
                     arrayEx.add(word.getExample());
                     arrayS.add(word.getAudio());
+                    arrayI.add(word.getImage());
                     
                 }
                 listview.setAdapter(arrayAdapter);
@@ -72,8 +74,8 @@ public class DictionaryHome extends AppCompatActivity {
                 intent.putExtra("def",arrayDef.get(i));
                 intent.putExtra("ex",arrayEx.get(i));
                 intent.putExtra("url", arrayS.get(i));
+                intent.putExtra("img", arrayI.get(i));
                 startActivity(intent);
-
             }
         });
 
@@ -89,6 +91,7 @@ public class DictionaryHome extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
+            //Requested Words list
             case R.id.rWords:
                 Toast.makeText(DictionaryHome.this, "It works", Toast.LENGTH_LONG).show();
                 return true;

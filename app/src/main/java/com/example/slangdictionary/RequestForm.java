@@ -49,7 +49,6 @@ public class RequestForm extends AppCompatActivity {
 
     private void requestWord(String w, String d, String user){
         if(w != null && d != null && user != null){
-            DatabaseReference ref = mDatabase.child("Request");
             request = new Request(w,d);
             mDatabase.child(user).child("Word").setValue(w);
             mDatabase.child(user).child("Definition").setValue(d);

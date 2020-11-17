@@ -8,8 +8,12 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
@@ -20,7 +24,9 @@ public class wordDetails extends AppCompatActivity {
     private TextView definition;
     private TextView example;
     private ImageButton sound;
+    private ImageView image;
     String soundURL="";
+    StorageReference storage = FirebaseStorage.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +36,7 @@ public class wordDetails extends AppCompatActivity {
         definition = (TextView) findViewById(R.id.definition);
         example = (TextView) findViewById(R.id.tv_ex);
         sound = (ImageButton) findViewById(R.id.ib_sound);
+        image = (ImageView) findViewById(R.id.iv_img);
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
 
@@ -37,10 +44,13 @@ public class wordDetails extends AppCompatActivity {
             String w = (String) bundle.get("word");
             String d = (String) bundle.get("def");
             String e = (String) bundle.get("ex");
+            String im = (String) bundle.get("img");
            soundURL = (String) bundle.get("url");
             word.setText("Word: "+ w);
             definition.setText(d);
             example.setText(e);
+
+
         }
 
         sound.setOnClickListener(new View.OnClickListener() {

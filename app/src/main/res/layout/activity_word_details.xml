@@ -107,5 +107,17 @@
             android:layout_height="5dp"
             android:background="?android:attr/listDivider" />
 
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="match_parent"
+            android:layout_height="188dp"
+            app:srcCompat="@drawable/ic_baseline_aspect_ratio_24" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,15 +6,17 @@ public class Words {
     private String Definition;
     private String Example;
     private String Audio;
+    private String Image;
 
     public Words() {
     }
 
-    public Words(String word, String definition, String example, String audio) {
+    public Words(String word, String definition, String example, String audio, String image) {
         Word = word;
         Definition = definition;
         Example = example;
         Audio = audio;
+        Image = image;
     }
 
     public String getWord() {
@@ -31,5 +33,9 @@ public class Words {
 
     public String getAudio(){
         return Audio;
+    }
+
+    public String getImage(){
+        return Image;
     }
 }
