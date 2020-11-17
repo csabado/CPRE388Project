@@ -41,7 +41,9 @@ public class RequestedWords extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.requestList);
         listview.setAdapter(arrayAdapter);
         mRef = FirebaseDatabase.getInstance().getReference("Request");
+
        mDatabase = FirebaseDatabase.getInstance().getReference().child("Words");
+
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -49,8 +51,6 @@ public class RequestedWords extends AppCompatActivity {
                     request = ds.getValue(Request.class);
                     arr.add(request.getWord());
                     reqDef.add(request.getDefinition());
-
-
                 }
                 listview.setAdapter(arrayAdapter);
             }
@@ -81,10 +81,15 @@ public class RequestedWords extends AppCompatActivity {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface message, int w) {
+
                 if(arr != null && reqDef != null){
                     word = new Words(arr.get(position), reqDef.get(position), ".", ".", ".");
 
                 }
+
+
+
+                createWord(arr.get(position),reqDef.get(position));
 
                 message.cancel();
             }
@@ -103,5 +108,26 @@ public class RequestedWords extends AppCompatActivity {
     }
 
 
+    private void createWord(String w, String d){
+        if(w != null && d != null){
+            word = new Words(w,d, ".", ".", ".");
+            mDatabase.child(w).child("Word").setValue(w);
+            mDatabase.child(w).child("Definition").setValue(d);
+            mDatabase.child(w).child("Example").setValue(".");
+            mDatabase.child(w).child("Audio").setValue(".");
+            mDatabase.child(w).child("Image").setValue(".");
+        }
+
+
+//        if(w != null && d != null && user != null){
+//            request = new Request(w,d);
+//            mDatabase.child(user).child("Word").setValue(w);
+//            mDatabase.child(user).child("Definition").setValue(d);
+//            Toast.makeText(RequestForm.this,"Submitted", Toast.LENGTH_LONG).show();
+//        }else if (w == null && d == null && user == null){
+//            Toast.makeText(RequestForm.this, "Missing Information", Toast.LENGTH_LONG).show();
+//        }
+
+    }
 
 }
