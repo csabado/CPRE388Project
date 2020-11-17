@@ -49,7 +49,7 @@ public class RequestForm extends AppCompatActivity {
 
     private void requestWord(String w, String d, String user){
         if(w != null && d != null && user != null){
-            request = new Request(w,d);
+            request = new Request(w,d,user);
             mDatabase.child(user).child("Word").setValue(w);
             mDatabase.child(user).child("Definition").setValue(d);
             Toast.makeText(RequestForm.this,"Submitted", Toast.LENGTH_LONG).show();
