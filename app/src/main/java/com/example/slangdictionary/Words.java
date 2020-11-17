@@ -5,14 +5,16 @@ public class Words {
     private String Word;
     private String Definition;
     private String Example;
+    private String Audio;
 
     public Words() {
     }
 
-    public Words(String word, String definition, String example) {
+    public Words(String word, String definition, String example, String audio) {
         Word = word;
         Definition = definition;
         Example = example;
+        Audio = audio;
     }
 
     public String getWord() {
@@ -25,5 +27,9 @@ public class Words {
 
     public String getExample() {
         return Example;
+    }
+
+    public String getAudio(){
+        return Audio;
     }
 }

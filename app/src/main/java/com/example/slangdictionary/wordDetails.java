@@ -3,15 +3,24 @@ package com.example.slangdictionary;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.io.IOException;
 
 public class wordDetails extends AppCompatActivity {
     private TextView word;
     private TextView definition;
     private TextView example;
+    private ImageButton sound;
+    String soundURL="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +29,7 @@ public class wordDetails extends AppCompatActivity {
         word = (TextView) findViewById(R.id.tv_w);
         definition = (TextView) findViewById(R.id.definition);
         example = (TextView) findViewById(R.id.tv_ex);
+        sound = (ImageButton) findViewById(R.id.ib_sound);
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
 
@@ -27,9 +37,27 @@ public class wordDetails extends AppCompatActivity {
             String w = (String) bundle.get("word");
             String d = (String) bundle.get("def");
             String e = (String) bundle.get("ex");
+           soundURL = (String) bundle.get("url");
             word.setText(w);
             definition.setText(d);
             example.setText(e);
         }
+
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try{
+                    mediaPlayer.setDataSource(soundURL);
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                    Toast.makeText(getApplicationContext(),"Playing audio", Toast.LENGTH_LONG).show();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 }
