@@ -28,6 +28,8 @@ import java.util.ArrayList;
 public class DictionaryHome extends AppCompatActivity {
     ListView listview;
     ArrayList<String> arraylist = new ArrayList<>();
+    ArrayList<String> arrayDef = new ArrayList<>();
+    ArrayList<String> arrayEx = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
     Words word;
@@ -47,6 +49,8 @@ public class DictionaryHome extends AppCompatActivity {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     word = ds.getValue(Words.class);
                     arraylist.add(word.getWord());
+                    arrayDef.add(word.getDefinition());
+                    arrayEx.add(word.getExample());
                     
                 }
                 listview.setAdapter(arrayAdapter);
@@ -61,6 +65,11 @@ public class DictionaryHome extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), wordDetails.class);
+                intent.putExtra("word",arraylist.get(i));
+                intent.putExtra("def",arrayDef.get(i));
+                intent.putExtra("ex",arrayEx.get(i));
+                startActivity(intent);
 
             }
         });
