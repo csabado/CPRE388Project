@@ -12,6 +12,14 @@ public class Request {
         Definition = definition;
     }
 
+    public String getWord() {
+        return Word;
+    }
+
+    public String getDefinition() {
+        return Definition;
+    }
+
     public void setWord(String word) {
         Word = word;
     }
