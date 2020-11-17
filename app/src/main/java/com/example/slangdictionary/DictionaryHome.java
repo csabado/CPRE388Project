@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,11 +36,21 @@ public class DictionaryHome extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
     Words word;
+    String user;
+    AdminAuth admin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dictionary_home);
 
+        Intent i = getIntent();
+        Bundle bundle = i.getExtras();
+        if(bundle != null){
+            user = (String) bundle.get("user");
+        }
+        admin = new AdminAuth(user,false);
+        admin.adminCheck();
+        Log.d("Admin check: ", user);
         word = new Words();
         arrayAdapter = new ArrayAdapter<String>(DictionaryHome.this, android.R.layout.simple_list_item_1, arraylist);
         listview = (ListView) findViewById(R.id.lv_Words);
@@ -93,8 +104,15 @@ public class DictionaryHome extends AppCompatActivity {
         switch(item.getItemId()){
             //Requested Words list
             case R.id.rWords:
-                Toast.makeText(DictionaryHome.this, "It works", Toast.LENGTH_LONG).show();
-                return true;
+                //Toast.makeText(DictionaryHome.this, "It works", Toast.LENGTH_LONG).show();
+                if(admin.isAdmin){
+                    startActivity(new Intent(DictionaryHome.this, AdminRequest.class));
+                    return true;
+                }else{
+                    startActivity(new Intent(DictionaryHome.this, UserRequest.class));
+                    return true;
+                }
+
             case R.id.logout:
                 Toast.makeText(DictionaryHome.this, "Successfully logged out", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(DictionaryHome.this, LoginPage.class));

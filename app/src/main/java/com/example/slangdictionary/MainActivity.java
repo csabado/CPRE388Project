@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText name;
     private Button login;
     private Button register;
+    String n;
+    String e;
+    String p;
+    AdminAuth admin;
     FirebaseAuth mFirebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String n = name.getText().toString();
-                String e = email.getText().toString();
-                String p = password.getText().toString();
+                 n = name.getText().toString();
+                 e = email.getText().toString();
+                 p = password.getText().toString();
                 if(e == null){
                     Toast.makeText(MainActivity.this,"Need an email", Toast.LENGTH_LONG).show();
                 }else if(p == null){
@@ -57,8 +61,12 @@ public class MainActivity extends AppCompatActivity {
                             if(!task.isSuccessful()){
                                 Toast.makeText(MainActivity.this, "Sign Up Unsuccessful", Toast.LENGTH_LONG).show();
                             }else{
+                                admin = new AdminAuth(e,false);
                                 Toast.makeText(MainActivity.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(MainActivity.this, DictionaryHome.class));
+                                Intent intent = new Intent(MainActivity.this, DictionaryHome.class);
+                                intent.putExtra("user", admin.currentUser);
+                                startActivity(intent);
+                                //startActivity(new Intent(MainActivity.this, DictionaryHome.class));
                             }
                         }
                     });

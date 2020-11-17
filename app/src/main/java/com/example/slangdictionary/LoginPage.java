@@ -20,12 +20,16 @@ public class LoginPage extends AppCompatActivity {
     private EditText email;
     private EditText password;
     private Button login;
+    private String e;
+    private String p;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    AdminAuth admin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+
 
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
@@ -47,8 +51,8 @@ public class LoginPage extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String e = email.getText().toString();
-                String p = password.getText().toString();
+                e = email.getText().toString();
+                p = password.getText().toString();
                 if(e == null){
                     Toast.makeText(LoginPage.this,"Need an email", Toast.LENGTH_LONG).show();
                 }else if(p == null){
@@ -60,8 +64,13 @@ public class LoginPage extends AppCompatActivity {
                             if(!task.isSuccessful()){
                                 Toast.makeText(LoginPage.this, "Incorrect email/password", Toast.LENGTH_LONG).show();
                             }else{
+                                //admin.adminCheck(e);
+                                //admin.adminCheck();
+                                admin = new AdminAuth(e,false);
                                 Toast.makeText(LoginPage.this, "Welcome back!", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(LoginPage.this, DictionaryHome.class));
+                                Intent intent = new Intent(LoginPage.this, DictionaryHome.class);
+                                intent.putExtra("user", admin.currentUser);
+                                startActivity(intent);
                             }
                         }
                     });
