@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    private Toolbar tb;
+
     private EditText email;
     private EditText password;
     private EditText name;
@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tb = (Toolbar) findViewById(R.id.toolbar);
-        tb.setTitle("Slang Dictionary");
+
         name = (EditText) findViewById(R.id.et_name);
         email = (EditText) findViewById(R.id.et_username);
         password = (EditText) findViewById(R.id.et_password);
