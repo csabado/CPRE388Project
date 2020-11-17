@@ -24,12 +24,12 @@ public class RequestedWords extends AppCompatActivity {
     ArrayList<String> arr = new ArrayList<>();
     ArrayList<String> reqDef = new ArrayList<>();
     ArrayList<String> reqEx = new ArrayList<>();
-
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
     DatabaseReference mDatabase;
     Words word;
     Request request;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,7 @@ public class RequestedWords extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.requestList);
         listview.setAdapter(arrayAdapter);
         mRef = FirebaseDatabase.getInstance().getReference("Request");
-     //   mDatabase = FirebaseDatabase.getInstance().getReference().child("Words");
+       mDatabase = FirebaseDatabase.getInstance().getReference().child("Words");
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,10 +67,12 @@ public class RequestedWords extends AppCompatActivity {
                 showDescriptionDialogBox(i);
             }
         });
+
     }
 
-    public void showDescriptionDialogBox(int position) {
+    public void showDescriptionDialogBox(final int position) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
         dialog.setMessage("The definition of this word is " + reqDef.get(position));
         dialog.setTitle("Do you approve of this word?");
 
@@ -79,7 +81,11 @@ public class RequestedWords extends AppCompatActivity {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface message, int w) {
-                createWord(request);
+                if(arr != null && reqDef != null){
+                    word = new Words(arr.get(position), reqDef.get(position), ".", ".", ".");
+
+                }
+
                 message.cancel();
             }
         });
@@ -97,23 +103,5 @@ public class RequestedWords extends AppCompatActivity {
     }
 
 
-    private void createWord(Request r){
-        if(r != null){
-            word = new Words(r.getWord(), r.getDefinition(), ".", ".", ".");
-            mDatabase.child(r.getWord()).child("Word").setValue(r.getWord());
-            mDatabase.child(r.getWord()).child("Definition").setValue(r.getDefinition());
-        }
-
-
-//        if(w != null && d != null && user != null){
-//            request = new Request(w,d);
-//            mDatabase.child(user).child("Word").setValue(w);
-//            mDatabase.child(user).child("Definition").setValue(d);
-//            Toast.makeText(RequestForm.this,"Submitted", Toast.LENGTH_LONG).show();
-//        }else if (w == null && d == null && user == null){
-//            Toast.makeText(RequestForm.this, "Missing Information", Toast.LENGTH_LONG).show();
-//        }
-
-    }
 
 }
