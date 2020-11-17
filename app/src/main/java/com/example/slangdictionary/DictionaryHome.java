@@ -1,9 +1,5 @@
 package com.example.slangdictionary;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -106,7 +104,7 @@ public class DictionaryHome extends AppCompatActivity {
             case R.id.rWords:
                 //Toast.makeText(DictionaryHome.this, "It works", Toast.LENGTH_LONG).show();
                 if(admin.isAdmin){
-                    startActivity(new Intent(DictionaryHome.this, AdminRequest.class));
+                    startActivity(new Intent(DictionaryHome.this, RequestedWords.class));
                     return true;
                 }else{
                     startActivity(new Intent(DictionaryHome.this, UserRequest.class));
