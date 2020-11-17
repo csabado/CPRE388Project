@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "873721341337",
+    "firebase_url": "https://slangdictionary-aa18f.firebaseio.com",
+    "project_id": "slangdictionary-aa18f",
+    "storage_bucket": "slangdictionary-aa18f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873721341337:android:f8a9fc42b4bb60cb1a9f08",
+        "android_client_info": {
+          "package_name": "com.example.slangdictionary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873721341337-r1glq0g9h9c8j8kda10kjlo3sd2sh583.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0bnKsBMd5mgfqqeWCHJZRSwXS-FRt5Dc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873721341337-r1glq0g9h9c8j8kda10kjlo3sd2sh583.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
