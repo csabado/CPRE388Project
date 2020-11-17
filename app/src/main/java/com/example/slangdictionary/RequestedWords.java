@@ -41,7 +41,7 @@ public class RequestedWords extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.requestList);
         listview.setAdapter(arrayAdapter);
         mRef = FirebaseDatabase.getInstance().getReference("Request");
-     //   mDatabase = FirebaseDatabase.getInstance().getReference().child("Words");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Words");
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -49,8 +49,6 @@ public class RequestedWords extends AppCompatActivity {
                     request = ds.getValue(Request.class);
                     arr.add(request.getWord());
                     reqDef.add(request.getDefinition());
-
-
                 }
                 listview.setAdapter(arrayAdapter);
             }
@@ -69,7 +67,7 @@ public class RequestedWords extends AppCompatActivity {
         });
     }
 
-    public void showDescriptionDialogBox(int position) {
+    public void showDescriptionDialogBox(final int position) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage("The definition of this word is " + reqDef.get(position));
         dialog.setTitle("Do you approve of this word?");
@@ -79,7 +77,8 @@ public class RequestedWords extends AppCompatActivity {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface message, int w) {
-                createWord(request);
+
+                createWord(arr.get(position),reqDef.get(position));
                 message.cancel();
             }
         });
@@ -97,11 +96,14 @@ public class RequestedWords extends AppCompatActivity {
     }
 
 
-    private void createWord(Request r){
-        if(r != null){
-            word = new Words(r.getWord(), r.getDefinition(), ".", ".", ".");
-            mDatabase.child(r.getWord()).child("Word").setValue(r.getWord());
-            mDatabase.child(r.getWord()).child("Definition").setValue(r.getDefinition());
+    private void createWord(String w, String d){
+        if(w != null && d != null){
+            word = new Words(w,d, ".", ".", ".");
+            mDatabase.child(w).child("Word").setValue(w);
+            mDatabase.child(w).child("Definition").setValue(d);
+            mDatabase.child(w).child("Example").setValue(".");
+            mDatabase.child(w).child("Audio").setValue(".");
+            mDatabase.child(w).child("Image").setValue(".");
         }
 
 
