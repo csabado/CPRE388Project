@@ -38,7 +38,7 @@ public class wordDetails extends AppCompatActivity {
             String d = (String) bundle.get("def");
             String e = (String) bundle.get("ex");
            soundURL = (String) bundle.get("url");
-            word.setText(w);
+            word.setText("Word: "+ w);
             definition.setText(d);
             example.setText(e);
         }

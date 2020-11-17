@@ -58,7 +58,7 @@ public class LoginPage extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(LoginPage.this, "Login Not successful", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginPage.this, "Incorrect email/password", Toast.LENGTH_LONG).show();
                             }else{
                                 Toast.makeText(LoginPage.this, "Welcome back!", Toast.LENGTH_LONG).show();
                                 startActivity(new Intent(LoginPage.this, DictionaryHome.class));

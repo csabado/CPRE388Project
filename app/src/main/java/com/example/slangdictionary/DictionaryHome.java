@@ -96,6 +96,10 @@ public class DictionaryHome extends AppCompatActivity {
                 Toast.makeText(DictionaryHome.this, "Successfully logged out", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(DictionaryHome.this, LoginPage.class));
                 return true;
+            case R.id.request:
+                Toast.makeText(DictionaryHome.this, "Let's Request", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(DictionaryHome.this, RequestForm.class));
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

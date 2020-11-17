@@ -7,6 +7,10 @@
         android:title="Requested Words"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/request"
+        android:title="Request a Word"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/logout"
         android:title="Log Out"
         app:showAsAction="never"/>
