@@ -64,14 +64,14 @@ public class RequestedWords extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showDescriptionDialogBox();
+                showDescriptionDialogBox(i);
             }
         });
     }
 
-    public void showDescriptionDialogBox() {
+    public void showDescriptionDialogBox(int position) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("The definition of this word is " + request.getDefinition());
+        dialog.setMessage("The definition of this word is " + reqDef.get(position));
         dialog.setTitle("Do you approve of this word?");
 
 
