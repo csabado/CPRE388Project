@@ -56,9 +56,6 @@ public class RequestedWords extends AppCompatActivity {
                 listview.setAdapter(arrayAdapter);
             }
 
-
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
