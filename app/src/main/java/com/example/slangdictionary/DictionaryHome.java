@@ -1,9 +1,5 @@
 package com.example.slangdictionary;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +32,7 @@ public class DictionaryHome extends AppCompatActivity {
     ArrayList<String> arrayI = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
+
     Words word;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

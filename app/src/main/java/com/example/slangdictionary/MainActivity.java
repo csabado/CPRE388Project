@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
+//                                String s = "Sign up Failed" + task.getException();
+//                                Toast.makeText(MainActivity.this, s,
+//                                        Toast.LENGTH_SHORT).show();
+//                                System.out.println(s);
                                 Toast.makeText(MainActivity.this, "Sign Up Unsuccessful", Toast.LENGTH_LONG).show();
                             }else{
                                 Toast.makeText(MainActivity.this, "Sign Up Successful", Toast.LENGTH_LONG).show();
