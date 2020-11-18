@@ -23,7 +23,7 @@ public class RequestedWords extends AppCompatActivity {
     ListView listview;
     ArrayList<String> arr = new ArrayList<>();
     ArrayList<String> reqDef = new ArrayList<>();
-    ArrayList<String> reqEx = new ArrayList<>();
+
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
     DatabaseReference mDatabase;

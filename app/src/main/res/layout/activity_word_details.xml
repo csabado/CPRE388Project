@@ -113,7 +113,7 @@
         <ImageView
             android:id="@+id/iv_img"
             android:layout_width="match_parent"
-            android:layout_height="193dp"
+            android:layout_height="37dp"
             app:srcCompat="@drawable/ic_baseline_aspect_ratio_24" />
 
         <View
@@ -125,7 +125,7 @@
         <ListView
             android:id="@+id/commentList"
             android:layout_width="match_parent"
-            android:layout_height="82dp"
+            android:layout_height="227dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

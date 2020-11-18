@@ -4,6 +4,7 @@ public class Request {
     private String Word;
     private String Definition;
     private String User;
+
     public Request() {
     }
 
