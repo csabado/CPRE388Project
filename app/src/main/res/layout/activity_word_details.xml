@@ -125,7 +125,7 @@
         <ListView
             android:id="@+id/commentList"
             android:layout_width="match_parent"
-            android:layout_height="227dp"
+            android:layout_height="235dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -135,34 +135,19 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/submit"
+        android:id="@+id/Chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="311dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="6dp"
-        android:text="Submit"
+        android:text="Chat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.035" />
-
-    <EditText
-        android:id="@+id/comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="156dp"
-        android:ems="10"
-        android:hint="Enter Comment"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.099" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

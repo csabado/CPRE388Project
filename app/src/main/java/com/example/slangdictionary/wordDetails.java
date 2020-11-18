@@ -29,17 +29,18 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class wordDetails extends AppCompatActivity {
     private TextView word;
     private TextView definition;
-    ArrayList<String> arr = new ArrayList<>();
+    List<String> arr = new ArrayList<>();
     ArrayList<String> reqDef = new ArrayList<>();
     private TextView example;
     ArrayAdapter<String> arrayAdapter;
     private ImageButton sound;
     private ImageView image;
-    private Button submit;
+    private Button chat;
     private ListView commentLayout;
     private EditText editText;
     Comment comment;
@@ -60,20 +61,24 @@ public class wordDetails extends AppCompatActivity {
         example = (TextView) findViewById(R.id.tv_ex);
         sound = (ImageButton) findViewById(R.id.ib_sound);
         image = (ImageView) findViewById(R.id.iv_img);
-        submit = (Button) findViewById(R.id.submit);
-        editText = (EditText) findViewById(R.id.comment);
+        chat = (Button) findViewById(R.id.Chat);
+
         commentLayout = (ListView) findViewById(R.id.commentList);
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
         mRef = FirebaseDatabase.getInstance().getReference().child("Comment");
         arrayAdapter = new ArrayAdapter<String>(wordDetails.this, android.R.layout.simple_list_item_1, arr);
         commentLayout.setAdapter(arrayAdapter);
-        submit.setOnClickListener(new View.OnClickListener() {
+
+        chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                w = word.getText().toString();
-                c = editText.getText().toString();
-                requestComment(w,c);
+//                w = word.getText().toString();
+//                c = editText.getText().toString();
+//                requestComment(w,c);
+                Intent intent = new Intent(wordDetails.this, ChatRoom.class);
+                startActivity(intent);
+
             }
         });
         if(bundle != null){
@@ -111,7 +116,7 @@ public class wordDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     comment = ds.getValue(Comment.class);
-                //    arr.add(comment.getWord());
+                    arr.add(comment.getWord());
                     reqDef.add(comment.getComment());
                 }
                 commentLayout.setAdapter(arrayAdapter);
@@ -128,12 +133,15 @@ public class wordDetails extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), wordDetails.class);
-            //     intent.putExtra("word",arr.get(i));
+                 intent.putExtra("word",arr.get(i));
+
                 intent.putExtra("comment",reqDef.get(i));
+
                 startActivity(intent);
             }
         });
     }
+
 
     private void requestComment(String w, String c){
         if(w != null && c!= null ){
