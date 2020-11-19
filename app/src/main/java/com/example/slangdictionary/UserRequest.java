@@ -10,11 +10,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class UserRequest extends AppCompatActivity {
-
+    String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_request);
+        Intent i = getIntent();
+        Bundle bundle = i.getExtras();
+        if(bundle != null){
+            user = (String) bundle.get("user");
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -28,7 +33,10 @@ public class UserRequest extends AppCompatActivity {
         switch(item.getItemId()){
             //Requested Words list
             case R.id.home:
-                startActivity(new Intent(UserRequest.this, DictionaryHome.class));
+                Intent intent = new Intent(UserRequest.this, DictionaryHome.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                //startActivity(new Intent(UserRequest.this, DictionaryHome.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

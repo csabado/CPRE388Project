@@ -44,6 +44,7 @@ public class RequestedWords extends AppCompatActivity {
         setContentView(R.layout.activity_requested_words);
 
         word = new Words();
+        request = new Request();
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
         if(bundle != null){

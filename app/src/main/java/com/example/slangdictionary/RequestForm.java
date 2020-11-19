@@ -59,13 +59,13 @@ public class RequestForm extends AppCompatActivity {
     }
 
     private void requestWord(String w, String d, String user){
-        if(w != null && d != null && user != null){
+        if (w.isEmpty() || d.isEmpty() || user.isEmpty()){
+            Toast.makeText(RequestForm.this, "Missing Information", Toast.LENGTH_LONG).show();
+        }else if(w != "" && d != "" && user != ""){
             request = new Request(w,d,user);
             mDatabase.child(user).child("Word").setValue(w);
             mDatabase.child(user).child("Definition").setValue(d);
             Toast.makeText(RequestForm.this,"Submitted", Toast.LENGTH_LONG).show();
-        }else if (w == null && d == null && user == null){
-            Toast.makeText(RequestForm.this, "Missing Information", Toast.LENGTH_LONG).show();
         }
     }
 
