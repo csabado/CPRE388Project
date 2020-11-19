@@ -48,7 +48,7 @@ public class DictionaryHome extends AppCompatActivity {
         }
         admin = new AdminAuth(user,false);
         admin.adminCheck();
-        Log.d("Admin check: ", user);
+
         word = new Words();
         arrayAdapter = new ArrayAdapter<String>(DictionaryHome.this, android.R.layout.simple_list_item_1, arraylist);
         listview = (ListView) findViewById(R.id.lv_Words);
@@ -102,7 +102,7 @@ public class DictionaryHome extends AppCompatActivity {
         switch(item.getItemId()){
             //Requested Words list
             case R.id.rWords:
-                //Toast.makeText(DictionaryHome.this, "It works", Toast.LENGTH_LONG).show();
+
                 if(admin.isAdmin){
                     startActivity(new Intent(DictionaryHome.this, RequestedWords.class));
                     return true;

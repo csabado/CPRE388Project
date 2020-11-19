@@ -3,6 +3,7 @@ package com.example.slangdictionary;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ public class RequestedWords extends AppCompatActivity {
     ListView listview;
     ArrayList<String> arr = new ArrayList<>();
     ArrayList<String> reqDef = new ArrayList<>();
+
 
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
@@ -51,6 +53,7 @@ public class RequestedWords extends AppCompatActivity {
                     request = ds.getValue(Request.class);
                     arr.add(request.getWord());
                     reqDef.add(request.getDefinition());
+                    //userID.add(request.getUser());
                 }
                 listview.setAdapter(arrayAdapter);
             }
@@ -81,14 +84,10 @@ public class RequestedWords extends AppCompatActivity {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface message, int w) {
-
                 if(arr != null && reqDef != null){
                     word = new Words(arr.get(position), reqDef.get(position), ".", ".", ".");
 
                 }
-
-
-
                 createWord(arr.get(position),reqDef.get(position));
 
                 message.cancel();
@@ -116,17 +115,11 @@ public class RequestedWords extends AppCompatActivity {
             mDatabase.child(w).child("Example").setValue(".");
             mDatabase.child(w).child("Audio").setValue(".");
             mDatabase.child(w).child("Image").setValue(".");
+            deleteWord(w,d);
         }
+    }
 
-
-//        if(w != null && d != null && user != null){
-//            request = new Request(w,d);
-//            mDatabase.child(user).child("Word").setValue(w);
-//            mDatabase.child(user).child("Definition").setValue(d);
-//            Toast.makeText(RequestForm.this,"Submitted", Toast.LENGTH_LONG).show();
-//        }else if (w == null && d == null && user == null){
-//            Toast.makeText(RequestForm.this, "Missing Information", Toast.LENGTH_LONG).show();
-//        }
+    private void deleteWord(String w, String d){
 
     }
 
