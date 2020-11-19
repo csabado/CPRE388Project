@@ -9,15 +9,14 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="411dp"
-        android:layout_height="507dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +70,7 @@
                 android:layout_weight="1"
                 android:text="asdf"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <View
@@ -101,7 +100,7 @@
                 android:layout_height="63dp"
                 android:layout_weight="20"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <View
@@ -113,7 +112,7 @@
         <ImageView
             android:id="@+id/iv_img"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="253dp"
             app:srcCompat="@drawable/ic_baseline_aspect_ratio_24" />
 
         <View
@@ -122,32 +121,15 @@
             android:layout_height="2dp"
             android:background="?android:attr/listDivider" />
 
-        <ListView
-            android:id="@+id/commentList"
+        <Button
+            android:id="@+id/Chat"
             android:layout_width="match_parent"
-            android:layout_height="235dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></ListView>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="6dp"
+            android:text="Comments" />
 
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/Chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="311dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="6dp"
-        android:text="Chat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.099" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

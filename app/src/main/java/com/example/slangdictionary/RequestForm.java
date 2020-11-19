@@ -1,9 +1,14 @@
 package com.example.slangdictionary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,11 +28,17 @@ public class RequestForm extends AppCompatActivity {
     private String d="";
     private String u="";
     Request request;
+    String currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_form);
 
+        Intent i = getIntent();
+        Bundle bundle = i.getExtras();
+        if(bundle != null){
+            currentUser = (String) bundle.get("user");
+        }
         word = (EditText) findViewById(R.id.req_word);
         definition = (EditText) findViewById(R.id.req_definition);
         user = (EditText) findViewById(R.id.req_user);
@@ -56,6 +67,26 @@ public class RequestForm extends AppCompatActivity {
         }else if (w == null && d == null && user == null){
             Toast.makeText(RequestForm.this, "Missing Information", Toast.LENGTH_LONG).show();
         }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.requestmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            //Requested Words list
+            case R.id.home:
+                Intent intent = new Intent(RequestForm.this, DictionaryHome.class);
+                intent.putExtra("user", currentUser);
+                startActivity(intent);
+                //startActivity(new Intent(RequestForm.this, DictionaryHome.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

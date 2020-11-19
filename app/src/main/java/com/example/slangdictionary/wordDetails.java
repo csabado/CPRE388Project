@@ -2,9 +2,14 @@ package com.example.slangdictionary;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,14 +24,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +56,17 @@ public class wordDetails extends AppCompatActivity {
     private String c="";
     DatabaseReference mRef;
     String soundURL="";
+    String user;
+    String im;
 
-    StorageReference storage = FirebaseStorage.getInstance().getReference();
+    FirebaseStorage mStorage = FirebaseStorage.getInstance();
+    //StorageReference storage = mStorage.getReferenceFromUrl("gs://slangdictionary-aa18f.appspot.com");
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_details);
+
 
         word = (TextView) findViewById(R.id.tv_w);
         definition = (TextView) findViewById(R.id.definition);
@@ -63,12 +75,12 @@ public class wordDetails extends AppCompatActivity {
         image = (ImageView) findViewById(R.id.iv_img);
         chat = (Button) findViewById(R.id.Chat);
 
-        commentLayout = (ListView) findViewById(R.id.commentList);
+        //commentLayout = (ListView) findViewById(R.id.commentList);
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
-        mRef = FirebaseDatabase.getInstance().getReference().child("Comment");
+       // mRef = FirebaseDatabase.getInstance().getReference().child("Comment");
         arrayAdapter = new ArrayAdapter<String>(wordDetails.this, android.R.layout.simple_list_item_1, arr);
-        commentLayout.setAdapter(arrayAdapter);
+//        commentLayout.setAdapter(arrayAdapter);
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +88,8 @@ public class wordDetails extends AppCompatActivity {
 //                w = word.getText().toString();
 //                c = editText.getText().toString();
 //                requestComment(w,c);
-                Intent intent = new Intent(wordDetails.this, ChatRoom.class);
-                startActivity(intent);
+                //Intent intent = new Intent(wordDetails.this, ChatRoom.class);
+                //startActivity(intent);
 
             }
         });
@@ -85,9 +97,10 @@ public class wordDetails extends AppCompatActivity {
             String w = (String) bundle.get("word");
             String d = (String) bundle.get("def");
             String e = (String) bundle.get("ex");
-            String im = (String) bundle.get("img");
+            im = (String) bundle.get("img");
            soundURL = (String) bundle.get("url");
-            word.setText(w);
+           user = (String) bundle.get("user");
+            word.setText("Word: " + w);
             definition.setText(d);
             example.setText(e);
 
@@ -110,36 +123,51 @@ public class wordDetails extends AppCompatActivity {
             }
         });
 
-
-        mRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren()){
-                    comment = ds.getValue(Comment.class);
-                    arr.add(comment.getWord());
-                    reqDef.add(comment.getComment());
+        //Image shit
+        try{
+            StorageReference storage = mStorage.getReferenceFromUrl("gs://slangdictionary-aa18f.appspot.com").child(im);
+            final File file = File.createTempFile("image","jpg");
+            storage.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    image.setImageBitmap(bitmap);
                 }
-                commentLayout.setAdapter(arrayAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+            });
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
 
-        commentLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), wordDetails.class);
-                 intent.putExtra("word",arr.get(i));
+//        mRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot ds: snapshot.getChildren()){
+//                    comment = ds.getValue(Comment.class);
+//                    arr.add(comment.getWord());
+//                    reqDef.add(comment.getComment());
+//                }
+////                commentLayout.setAdapter(arrayAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
-                intent.putExtra("comment",reqDef.get(i));
 
-                startActivity(intent);
-            }
-        });
+//        commentLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(getApplicationContext(), wordDetails.class);
+//                 intent.putExtra("word",arr.get(i));
+//
+//                intent.putExtra("comment",reqDef.get(i));
+//
+//                startActivity(intent);
+//            }
+//        });
     }
 
 
@@ -152,6 +180,26 @@ public class wordDetails extends AppCompatActivity {
         }else if (w == null && c == null){
             Toast.makeText(wordDetails.this, "Missing Information", Toast.LENGTH_LONG).show();
         }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.requestmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            //Requested Words list
+            case R.id.home:
+                Intent intent = new Intent(wordDetails.this, DictionaryHome.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                //startActivity(new Intent(RequestedWords.this, DictionaryHome.class));
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

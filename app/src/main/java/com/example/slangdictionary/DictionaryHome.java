@@ -79,6 +79,7 @@ public class DictionaryHome extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), wordDetails.class);
+                intent.putExtra("user", user);
                 intent.putExtra("word",arraylist.get(i));
                 intent.putExtra("def",arrayDef.get(i));
                 intent.putExtra("ex",arrayEx.get(i));
@@ -92,8 +93,8 @@ public class DictionaryHome extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater infalter = getMenuInflater();
-        infalter.inflate(R.menu.menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -104,10 +105,15 @@ public class DictionaryHome extends AppCompatActivity {
             case R.id.rWords:
 
                 if(admin.isAdmin){
-                    startActivity(new Intent(DictionaryHome.this, RequestedWords.class));
+                    Intent intent = new Intent(DictionaryHome.this, RequestedWords.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
                     return true;
                 }else{
-                    startActivity(new Intent(DictionaryHome.this, UserRequest.class));
+                    Intent intent = new Intent(DictionaryHome.this, UserRequest.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                    //startActivity(new Intent(DictionaryHome.this, UserRequest.class));
                     return true;
                 }
 
@@ -117,7 +123,10 @@ public class DictionaryHome extends AppCompatActivity {
                 return true;
             case R.id.request:
                 Toast.makeText(DictionaryHome.this, "Let's Request", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(DictionaryHome.this, RequestForm.class));
+                Intent intent = new Intent(DictionaryHome.this, RequestForm.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                //startActivity(new Intent(DictionaryHome.this, RequestForm.class));
                 return true;
 
             default:
