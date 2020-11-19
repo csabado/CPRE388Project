@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class RequestedWords extends AppCompatActivity {
     ListView listview;
     ArrayList<String> arr = new ArrayList<>();
     ArrayList<String> reqDef = new ArrayList<>();
+    ArrayList<String> arrUser = new ArrayList<>();
 
 
     ArrayAdapter<String> arrayAdapter;
@@ -51,9 +53,9 @@ public class RequestedWords extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren()){
                     request = ds.getValue(Request.class);
+                    arrUser.add(ds.getKey());
                     arr.add(request.getWord());
                     reqDef.add(request.getDefinition());
-                    //userID.add(request.getUser());
                 }
                 listview.setAdapter(arrayAdapter);
             }
@@ -79,35 +81,28 @@ public class RequestedWords extends AppCompatActivity {
         dialog.setMessage("The definition of this word is " + reqDef.get(position));
         dialog.setTitle("Do you approve of this word?");
 
-
-
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface message, int w) {
                 if(arr != null && reqDef != null){
                     word = new Words(arr.get(position), reqDef.get(position), ".", ".", ".");
-
+                    createWord(arr.get(position),reqDef.get(position), arrUser.get(position));
+                    Toast.makeText(RequestedWords.this, "Submitted", Toast.LENGTH_LONG);
                 }
-                createWord(arr.get(position),reqDef.get(position));
-
                 message.cancel();
             }
         });
-
-
         dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface message, int w) {
                 message.cancel();
             }
         });
-
         dialog.show();
-
     }
 
 
-    private void createWord(String w, String d){
+    private void createWord(String w, String d, String id){
         if(w != null && d != null){
             word = new Words(w,d, ".", ".", ".");
             mDatabase.child(w).child("Word").setValue(w);
@@ -115,12 +110,12 @@ public class RequestedWords extends AppCompatActivity {
             mDatabase.child(w).child("Example").setValue(".");
             mDatabase.child(w).child("Audio").setValue(".");
             mDatabase.child(w).child("Image").setValue(".");
-            deleteWord(w,d);
+            deleteWord(id);
         }
     }
 
-    private void deleteWord(String w, String d){
-
+    private void deleteWord(String id){
+        mRef.child(id).removeValue();
     }
 
 }
