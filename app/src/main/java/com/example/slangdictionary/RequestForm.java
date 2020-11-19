@@ -58,14 +58,17 @@ public class RequestForm extends AppCompatActivity {
 
     }
 
-    private void requestWord(String w, String d, String user){
-        if (w.isEmpty() || d.isEmpty() || user.isEmpty()){
+    private void requestWord(String w, String d, String u){
+        if (w.isEmpty() || d.isEmpty() || u.isEmpty()){
             Toast.makeText(RequestForm.this, "Missing Information", Toast.LENGTH_LONG).show();
-        }else if(w != "" && d != "" && user != ""){
-            request = new Request(w,d,user);
-            mDatabase.child(user).child("Word").setValue(w);
-            mDatabase.child(user).child("Definition").setValue(d);
+        }else if(w != "" && d != "" && u != ""){
+            request = new Request(w,d,u);
+            mDatabase.child(u).child("Word").setValue(w);
+            mDatabase.child(u).child("Definition").setValue(d);
             Toast.makeText(RequestForm.this,"Submitted", Toast.LENGTH_LONG).show();
+            word.setText("");
+            definition.setText("");
+            user.setText("");
         }
     }
 
