@@ -30,14 +30,13 @@ public class RequestedWords extends AppCompatActivity {
     ArrayList<String> arr = new ArrayList<>();
     ArrayList<String> reqDef = new ArrayList<>();
     ArrayList<String> arrUser = new ArrayList<>();
-
-
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
     DatabaseReference mDatabase;
     Words word;
     Request request;
     String user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +119,8 @@ public class RequestedWords extends AppCompatActivity {
             mDatabase.child(w).child("Example").setValue(".");
             mDatabase.child(w).child("Audio").setValue(".");
             mDatabase.child(w).child("Image").setValue(".");
+            mDatabase.child(w).child("Comments").child("Dummy").child("messageText").setValue("Make comments user friendly please");
+            mDatabase.child(w).child("Comments").child("Dummy").child("messageTime").setValue(12345);
             deleteWord(id);
         }
     }

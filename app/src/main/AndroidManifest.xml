@@ -15,6 +15,7 @@
         <activity android:name=".wordDetails" />
         <activity android:name=".DictionaryHome" />
         <activity android:name=".LoginPage" />
+        <activity android:name=".UserRequest"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

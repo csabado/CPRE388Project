@@ -31,6 +31,7 @@ public class DictionaryHome extends AppCompatActivity {
     ArrayList<String> arrayEx = new ArrayList<>();
     ArrayList<String> arrayS = new ArrayList<>();
     ArrayList<String> arrayI = new ArrayList<>();
+    ArrayList<String> key = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     DatabaseReference mRef;
     Words word;
@@ -64,6 +65,7 @@ public class DictionaryHome extends AppCompatActivity {
                     arrayEx.add(word.getExample());
                     arrayS.add(word.getAudio());
                     arrayI.add(word.getImage());
+                    key.add(ds.getKey());
                     
                 }
                 listview.setAdapter(arrayAdapter);
@@ -85,6 +87,7 @@ public class DictionaryHome extends AppCompatActivity {
                 intent.putExtra("ex",arrayEx.get(i));
                 intent.putExtra("url", arrayS.get(i));
                 intent.putExtra("img", arrayI.get(i));
+                intent.putExtra("key", key.get(i));
                 startActivity(intent);
             }
         });

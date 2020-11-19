@@ -58,6 +58,7 @@ public class wordDetails extends AppCompatActivity {
     String soundURL="";
     String user;
     String im;
+    String key;
 
     FirebaseStorage mStorage = FirebaseStorage.getInstance();
     @SuppressLint("WrongViewCast")
@@ -73,21 +74,7 @@ public class wordDetails extends AppCompatActivity {
         sound = (ImageButton) findViewById(R.id.ib_sound);
         image = (ImageView) findViewById(R.id.iv_img);
         chat = (Button) findViewById(R.id.Chat);
-
-
-
-
-//        chat.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                w = word.getText().toString();
-//                c = editText.getText().toString();
-//                requestComment(w,c);
-//                Intent intent = new Intent(wordDetails.this, ChatRoom.class);
-//                startActivity(intent);
-//
-//            }
-//        });
+        mRef = FirebaseDatabase.getInstance().getReference().child("Comment");
 
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
@@ -96,8 +83,9 @@ public class wordDetails extends AppCompatActivity {
             String d = (String) bundle.get("def");
             String e = (String) bundle.get("ex");
             im = (String) bundle.get("img");
-           soundURL = (String) bundle.get("url");
-           user = (String) bundle.get("user");
+            soundURL = (String) bundle.get("url");
+            user = (String) bundle.get("user");
+            key = (String) bundle.get("key");
             word.setText("Word: " + w);
             definition.setText(d);
             example.setText(e);
@@ -137,48 +125,33 @@ public class wordDetails extends AppCompatActivity {
         }
 
 
-//        mRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for(DataSnapshot ds: snapshot.getChildren()){
-//                    comment = ds.getValue(Comment.class);
-//                    arr.add(comment.getWord());
-//                    reqDef.add(comment.getComment());
-//                }
-//                commentLayout.setAdapter(arrayAdapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds: snapshot.getChildren()){
+                    comment = ds.getValue(Comment.class);
+                    arr.add(comment.getWord());
+                    reqDef.add(comment.getComment());
+                }
+            }
 
-//
-//        commentLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent(getApplicationContext(), wordDetails.class);
-//                 intent.putExtra("word",arr.get(i));
-//
-//                intent.putExtra("comment",reqDef.get(i));
-//
-//                startActivity(intent);
-//            }
-//        });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(wordDetails.this, ChatRoom.class);
+                intent.putExtra("key", key);
+                intent.putExtra("user", user);
+                startActivity(intent);
+            }
+        });
     }
 
-
-//    private void requestComment(String w, String c){
-//        if(w != null && c!= null ){
-//            comment = new Comment(w, c);
-//            mRef.child(comment.getWord()).child("Word").setValue(w);
-//            mRef.child(comment.getWord()).child("Comment").setValue(c);
-//            Toast.makeText(wordDetails.this,"Submitted", Toast.LENGTH_LONG).show();
-//        }else if (w == null && c == null){
-//            Toast.makeText(wordDetails.this, "Missing Information", Toast.LENGTH_LONG).show();
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -195,7 +168,6 @@ public class wordDetails extends AppCompatActivity {
                 Intent intent = new Intent(wordDetails.this, DictionaryHome.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
-                //startActivity(new Intent(RequestedWords.this, DictionaryHome.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
