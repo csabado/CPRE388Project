@@ -118,9 +118,9 @@ public class RequestedWords extends AppCompatActivity {
             mDatabase.child(w).child("Definition").setValue(d);
             mDatabase.child(w).child("Example").setValue(".");
             mDatabase.child(w).child("Audio").setValue(".");
-            mDatabase.child(w).child("Image").setValue(".");
-            mDatabase.child(w).child("Comments").child("Dummy").child("messageText").setValue("Make comments user friendly please");
-            mDatabase.child(w).child("Comments").child("Dummy").child("messageTime").setValue(12345);
+            mDatabase.child(w).child("Image").setValue("lol.jpg");
+            //mDatabase.child(w).child("Comments").child("Dummy").child("messageText").setValue("Make comments user friendly please");
+            //mDatabase.child(w).child("Comments").child("Dummy").child("messageTime").setValue(12345);
             deleteWord(id);
         }
     }
