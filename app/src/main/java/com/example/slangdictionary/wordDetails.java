@@ -60,7 +60,6 @@ public class wordDetails extends AppCompatActivity {
     String im;
 
     FirebaseStorage mStorage = FirebaseStorage.getInstance();
-    //StorageReference storage = mStorage.getReferenceFromUrl("gs://slangdictionary-aa18f.appspot.com");
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,24 +74,23 @@ public class wordDetails extends AppCompatActivity {
         image = (ImageView) findViewById(R.id.iv_img);
         chat = (Button) findViewById(R.id.Chat);
 
-        //commentLayout = (ListView) findViewById(R.id.commentList);
-        Intent i = getIntent();
-        Bundle bundle = i.getExtras();
-       // mRef = FirebaseDatabase.getInstance().getReference().child("Comment");
-        arrayAdapter = new ArrayAdapter<String>(wordDetails.this, android.R.layout.simple_list_item_1, arr);
-//        commentLayout.setAdapter(arrayAdapter);
 
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
+
+//        chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //                w = word.getText().toString();
 //                c = editText.getText().toString();
 //                requestComment(w,c);
-                //Intent intent = new Intent(wordDetails.this, ChatRoom.class);
-                //startActivity(intent);
+//                Intent intent = new Intent(wordDetails.this, ChatRoom.class);
+//                startActivity(intent);
+//
+//            }
+//        });
 
-            }
-        });
+        Intent i = getIntent();
+        Bundle bundle = i.getExtras();
         if(bundle != null){
             String w = (String) bundle.get("word");
             String d = (String) bundle.get("def");
@@ -147,7 +145,7 @@ public class wordDetails extends AppCompatActivity {
 //                    arr.add(comment.getWord());
 //                    reqDef.add(comment.getComment());
 //                }
-////                commentLayout.setAdapter(arrayAdapter);
+//                commentLayout.setAdapter(arrayAdapter);
 //            }
 //
 //            @Override
@@ -156,7 +154,7 @@ public class wordDetails extends AppCompatActivity {
 //            }
 //        });
 
-
+//
 //        commentLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -171,16 +169,16 @@ public class wordDetails extends AppCompatActivity {
     }
 
 
-    private void requestComment(String w, String c){
-        if(w != null && c!= null ){
-            comment = new Comment(w, c);
-            mRef.child(comment.getWord()).child("Word").setValue(w);
-            mRef.child(comment.getWord()).child("Comment").setValue(c);
-            Toast.makeText(wordDetails.this,"Submitted", Toast.LENGTH_LONG).show();
-        }else if (w == null && c == null){
-            Toast.makeText(wordDetails.this, "Missing Information", Toast.LENGTH_LONG).show();
-        }
-    }
+//    private void requestComment(String w, String c){
+//        if(w != null && c!= null ){
+//            comment = new Comment(w, c);
+//            mRef.child(comment.getWord()).child("Word").setValue(w);
+//            mRef.child(comment.getWord()).child("Comment").setValue(c);
+//            Toast.makeText(wordDetails.this,"Submitted", Toast.LENGTH_LONG).show();
+//        }else if (w == null && c == null){
+//            Toast.makeText(wordDetails.this, "Missing Information", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
